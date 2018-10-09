@@ -37,12 +37,13 @@ add_action( 'admin_menu', 'fujilondon_cfp_sync_admin_menu' );
 
 //Settings Menu Func
 function fujilondon_cfp_sync_admin_menu() {
-  add_menu_page('CFP 同期設定', 'CFP/Vebra', 'manage_options' , 'fujilondon_cfp_sync_main_menu', 'fujilondon_cfp_sync_plugin_options2');
-  add_submenu_page('fujilondon_cfp_sync_main_menu', 'Sync Setting', 'sync setting', 'manage_options', 'fujilondon_cfp_sync_sync_setting_menu', 'fujilondon_cfp_sync_plugin_options2');
-  add_submenu_page('fujilondon_cfp_sync_main_menu', 'CFP/Vebra 同期ログ', '同期ログ', 'manage_options', 'fujilondon_cfp_sync_log_menu', 'fujilondon_cfp_sync_show_sync_log');
-//  add_options_page( 'My Plugin Options', 'My Plugin', 'manage_options', 'my-unique-identifier', 'fujilondon_cfp_sync_plugin_options2' );
+	//add_menu_page('CFP 同期設定', 'CFP/Vebra', 'manage_options' , 'fujilondon_cfp_sync_main_menu', 'fujilondon_cfp_sync_plugin_options2');
+	//add_submenu_page('fujilondon_cfp_sync_main_menu', 'Sync Setting', 'sync setting', 'manage_options', 'fujilondon_cfp_sync_sync_setting_menu', 'fujilondon_cfp_sync_plugin_options2');
+	//add_submenu_page('fujilondon_cfp_sync_main_menu', 'CFP/Vebra 同期ログ', '同期ログ', 'manage_options', 'fujilondon_cfp_sync_log_menu', 'fujilondon_cfp_sync_show_sync_log');
+	//add_options_page( 'My Plugin Options', 'My Plugin', 'manage_options', 'my-unique-identifier', 'fujilondon_cfp_sync_plugin_options2' );
 }
 
+/*
 //Plugin Menu
 function fujilondon_cfp_sync_plugin_options() {
   if ( !current_user_can( 'manage_options' ) )  {
@@ -53,6 +54,8 @@ function fujilondon_cfp_sync_plugin_options() {
 <p>OPTION FORM</p></div>
 HEREDOC;
 }
+*/
+
 function fujilondon_cfp_sync_show_sync_log() {
     $logdata = file_get_contents(dirname(__FILE__).'/wpfeed_log.txt');
 
@@ -63,6 +66,7 @@ function fujilondon_cfp_sync_show_sync_log() {
     }
 }
 
+/*
 function fujilondon_cfp_sync_plugin_options2() {
 
     // Check Users Privilege
@@ -119,4 +123,4 @@ $g
 </div>
 HEREDOC;
 }
-?>
+*/
