@@ -5,11 +5,12 @@ class FujiLogger {
         $this->filename = $log_filename;
     }
 
-    public function log_write_postresult($success, $errors, $ignores) {
+    public function log_write_postresult($insert, $update, $errors, $ignores) {
         $date = date('Y/m/d-H:i:s');
         $result = <<<HEREDOC
 $date
-$success success
+$insert inserted
+$update updated
 $errors error
 $ignores ignore
 -----------------------------------------

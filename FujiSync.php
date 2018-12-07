@@ -11,6 +11,7 @@ class FujiSync {
     }
 
     public function sync() {
+        // TODO uncomment later
         //$ftp = new FujiFTP();
         //$ftp->download_property();
 
@@ -21,7 +22,8 @@ class FujiSync {
     }
 
     private function post() {
-        $suc_count = 0;
+        $upd_count = 0;
+        $ins_count = 0;
         $err_count = 0;
         $ign_count = 0;
     
@@ -34,8 +36,10 @@ class FujiSync {
                     $ign_count++;
                     break;
                 case 'INSERT-OK':
+                    $ins_count++;
+                    break;
                 case 'UPDATE-OK':
-                    $suc_count++;
+                    $upd_count++;
                     break;
                 default:
                     echo 'ERROR';
@@ -45,7 +49,7 @@ class FujiSync {
             }
         }
 
-        $this->logger->log_write_postresult($suc_count, $err_count, $ign_count);
+        $this->logger->log_write_postresult($ins_count, $upd_count, $err_count, $ign_count);
     }
 
     private function parse_csv_old($filename) { // TODO must be delete
