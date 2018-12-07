@@ -147,11 +147,11 @@ class Property {
     }
 
     public function update_wordpress_custom_fields() {
-        update_post_meta($this->get_wordpress_post_id(), 'Prop_ID', $this->get_prop_id());
-        /*
+        $post_id = $this->get_wordpress_post_id();
+
         // カスタムフィールドを登録(既に同じID、同じkeyのレコードがあれば更新される)
-        foreach ($property as $key => $value) {
-            update_post_meta($insert_id, $key, $value);
+        foreach ($this->wordpress_postmeta as $key => $value) {
+            update_post_meta($post_id, $key, $value);
         }
     }
 
