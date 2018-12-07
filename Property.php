@@ -153,12 +153,6 @@ class Property {
         foreach ($property as $key => $value) {
             update_post_meta($insert_id, $key, $value);
         }
-
-        // ジオコーディング結果を登録
-        update_post_meta($insert_id, 'lat', (string)$lat);
-        update_post_meta($insert_id, 'lng', (string)$lng);
-        add_post_meta($insert_id, 'station', (string)$station->name);
-        */
     }
 
     public function delete_wordpress_custom_fields() {
