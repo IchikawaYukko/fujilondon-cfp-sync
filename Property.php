@@ -110,11 +110,8 @@ class Property {
     private function upsert_wordpress() {
         // 物件情報
         $this->wordpress_post_value = [
-            'post_author'   => self::AUTHOR_ADMIN,  // 投稿者のID。
-            'post_type'     => 'properties',        // 物件情報
             'post_name'     => $this->get_prop_id(),     // 投稿のスラッグ。
             'post_title'    => $this->get_title(),  // 投稿のタイトル。
-            'post_status'   => 'publish',           // 公開
         ];
 
         // 既に登録されている物件か確認
@@ -125,6 +122,12 @@ class Property {
         }
     }
     private function insert_wordpress() {
+        $this->wordpress_post_value += [
+            'post_author'   => self::AUTHOR_ADMIN,  // 投稿者のID。
+            'post_type'     => 'properties',        // カスタム投稿タイプ(物件情報)
+            'post_status'   => 'publish'            // 公開
+        ];
+
         $post_success = wp_insert_post($this->wordpress_post_value);
         if($post_success != null) {
             $this->post_id = $post_success;
