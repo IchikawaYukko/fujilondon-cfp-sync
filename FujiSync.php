@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/custom_fields.php';
 class FujiSync {
     private $properties_array;
     private $images_array;

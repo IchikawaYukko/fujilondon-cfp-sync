@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__.'/custom_fields.php';
 require_once __DIR__.'/Property.php';
 require_once __DIR__.'/PropertyImage.php';
 require_once __DIR__.'/FujiSettings.php';
