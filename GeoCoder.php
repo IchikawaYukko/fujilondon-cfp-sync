@@ -15,31 +15,42 @@ class GeoCoder {
 
         $xml = simplexml_load_file($url) or die('XML parsing error on Street address [GeoCoder]');
         if ($xml->status == 'OK') {
-            return $xml->result->geometry->location;
+            return [
+                'lat' => (string) $xml->result->geometry->location->lat,
+                'lng' => (string) $xml->result->geometry->location->lng
+            ];
         } else {
             return FALSE;
         }
     }
 
-    public function coord2nearest_station($location, $station_count) {
+    public function coord2nearest_station($lat, $long, $station_count) {
         // ジオコーディング結果から最寄駅を抽出
         $url = $this->api_base_url.'place/nearbysearch/xml?key='
         .$this->api_key
-        ."&location={$location->lat},{$location->lng}"
+        ."&location={$lat},{$long}"
         .'&rankby=distance&type=subway_station&language=en-GB';
 
         $xml = simplexml_load_file($url) or die('XML parsing error on nearest station GeoCoder');
-        if ($xml->status == 'OK') {
-            $stations_data = array_slice($xml->xpath('result'), 0, $station_count);
+        switch ($xml->status) {
+            case 'OK':
+                $stations_data = array_slice($xml->xpath('result'), 0, $station_count);
 
-            $stations = [];
-            foreach ($stations_data as $s) {
-                $x = (array) $s->name;
-                $stations[] = preg_replace( '/ Station$/', '', $x[0]);
-            }
-            return $stations;
-        } else {
-            return $false;
+                $stations = [];
+                foreach ($stations_data as $s) {
+                    $station_name = (array) $s->name;
+                    // if station name includes 'Station' or 'Underground Station' at the end, remove it.
+                    $replace_pattern = [
+                        '/ Underground Station$/',
+                        '/ Station$/',
+                    ];
+                    $stations[] = preg_replace( $replace_pattern, '', $station_name[0]);
+                }
+                return $stations;
+            case 'ZERO_RESULTS':
+                return [];
+            default:
+                return false;
         }
     }
 }
