@@ -1,12 +1,14 @@
 <?php
+require_once 'FujiSettings.php';
 class FujiFTP {
     private $server, $user, $pass;
     const CFP_DIR = 'cfp-temp/';
 
     public function __construct() {
-        $this->server = 'VEBRA_SERVER';
-        $this->user   = 'USERNAME';
-        $this->pass   = 'PASSWORD';
+        $f = new FujiSettings();
+        $this->server = $f->settings['vebra']['server'];
+        $this->user   = $f->settings['vebra']['username'];
+        $this->pass   = $f->settings['vebra']['password'];
     }
 
     public function download_property() {

@@ -12,9 +12,8 @@ class FujiSync {
     }
 
     public function sync() {
-        // TODO uncomment later
-        //$ftp = new FujiFTP();
-        //$ftp->download_property();
+        $ftp = new FujiFTP();
+        $ftp->download_property();
 
         $this->properties_array = $this->parse_csv(__DIR__.'/cfp-temp/vebraproperties.txt', 'Property');
         $this->images_array     = $this->parse_csv(__DIR__.'/cfp-temp/files.txt', 'PropertyImage');;
