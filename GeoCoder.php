@@ -34,7 +34,8 @@ class GeoCoder {
 
             $stations = [];
             foreach ($stations_data as $s) {
-                $stations[] = get_object_vars($s->name)[0];
+                $x = (array) $s->name;
+                $stations[] = preg_replace( '/ Station$/', '', $x[0]);
             }
             return $stations;
         } else {
@@ -42,10 +43,3 @@ class GeoCoder {
         }
     }
 }
-
-/*
-test code
-$x = new GeoCoder('AIzaSyAUqHUsUe5m7o2orkBr18QAu0vomDfe0TU');
-$latlon = $x->address2coord('Parkside, Finchley, London,N3 2PJ');
-$sta = $x->coord2nearest_station($latlon, 3);
-*/
